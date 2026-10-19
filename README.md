@@ -8,7 +8,7 @@ Maintained by [poopterm-labs](https://github.com/poopterm-labs).
 
 | Build | Architecture | Deployment target | Hardware scope |
 | --- | --- | --- | --- |
-| Classic | ARMv7 | iOS 6.0 | 32-bit iPhone, iPod touch, and iPad, including iPad 1 on iOS 6.1.3 |
+| Classic | ARMv7 | iOS 6.0 | 32-bit iPhone, iPod touch, and iPad.|
 | SoC Genius 64 | ARM64 | iOS 7.0 | 64-bit Apple devices; profiled iPhones through iPhone 15 Pro Max (A17 Pro), and iPads through M2 |
 
 The variants have separate bundle and Debian package identifiers, so both apps can be installed together. Their Debian packages are kept in separate directories. The 64-bit app also runs on later iOS versions, including iOS 26, subject to device and jailbreak compatibility. An iOS 18+ IPA is a future distribution target; the current build is for jailbroken devices.
