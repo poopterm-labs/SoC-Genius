@@ -200,7 +200,7 @@ static UIImage *TabIcon(NSInteger kind) {
     [super viewDidLoad]; self.title = @"SoC Genius";
     self.view.backgroundColor = [UIColor colorWithRed:0.90 green:0.91 blue:0.93 alpha:1.0];
     NSArray *sections=[NSArray arrayWithObjects:@"CPU",@"Device",@"Memory",@"Sensors",@"System",nil];
-    _segments=[[UISegmentedControl alloc] initWithItems:sections]; _segments.frame=CGRectMake(10,5,self.view.bounds.size.width-20,32); _segments.autoresizingMask=UIViewAutoresizingFlexibleWidth; _segments.segmentedControlStyle=UISegmentedControlStyleBar; _segments.tintColor=[UIColor colorWithRed:0.13 green:0.34 blue:0.65 alpha:1]; _segments.selectedSegmentIndex=0; [_segments addTarget:self action:@selector(sectionChanged:) forControlEvents:UIControlEventValueChanged]; [self.view addSubview:_segments];
+    _segments=[[UISegmentedControl alloc] initWithItems:sections]; _segments.frame=CGRectMake(10,5,self.view.bounds.size.width-20,32); _segments.autoresizingMask=UIViewAutoresizingFlexibleWidth; _segments.tintColor=[UIColor colorWithRed:0.13 green:0.34 blue:0.65 alpha:1]; _segments.selectedSegmentIndex=0; [_segments addTarget:self action:@selector(sectionChanged:) forControlEvents:UIControlEventValueChanged]; [self.view addSubview:_segments];
     [self buildSection];
 }
 - (void)sectionChanged:(id)sender {

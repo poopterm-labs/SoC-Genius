@@ -6,4 +6,4 @@ Description: Hardware and system information for legacy iOS devices.
 Maintainer: SoC Genius
 Author: SoC Genius
 Section: Applications
-Depends: firmware (>= 4.0)
+Depends: firmware (>= 6.0)

@@ -1,0 +1,9 @@
+Package: com.socgenius64.app
+Name: SoC Genius 64
+Version: 1.02
+Architecture: iphoneos-arm
+Description: Hardware and system information for 64-bit iOS devices.
+Maintainer: poopterm-labs
+Author: poopterm-labs
+Section: Applications
+Depends: firmware (>= 7.0)
