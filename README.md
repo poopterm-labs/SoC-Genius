@@ -2,6 +2,8 @@
 
 SoC Genius is a jailbreak-only hardware information app for legacy 32-bit iPhones, iPads, and iPod touch devices. It uses an iOS 6-inspired interface and runs locally on the device.
 
+Maintained by [poopterm-labs](https://github.com/poopterm-labs).
+
 ## Features
 
 - Identifies the device, board identifier, display resolution, iOS version, and OS build.
@@ -10,6 +12,7 @@ SoC Genius is a jailbreak-only hardware information app for legacy 32-bit iPhone
 - Shows installed and available memory, app resident memory, battery state, and storage capacity/free space on `/var`.
 - Streams three-axis accelerometer readings while the Sensors page is open.
 - Displays the app version and build number in the System section.
+- Includes Blue, Dark, CPU-Z Classic, Purple, Green, and Red themes. Choose a theme with the **Theme** button in the top bar; the choice is saved on the device.
 
 Missing kernel readings are shown as unavailable. iOS does not provide a reliable CPU-temperature reading across these devices.
 
@@ -30,9 +33,13 @@ The database is keyed by `hw.machine` identifiers in [`SoCGenius/main.m`](SoCGen
 
 The current Theos target produces an ARMv7 binary with an iOS 4.0 deployment minimum. The original iPhone, iPhone 3G, and first two iPod touch profiles are included as reference data; running the app on those ARMv6 devices requires a separate ARMv6-capable toolchain and binary slice. Maximum supported iOS depends on the exact device. The app has been installed and checked on an iPhone 5 running iOS 6.1.4; other models still need testing on hardware.
 
-## GitHub Actions
+## Install from Cydia
 
-Pushes to `main` build the Debian package and attach it as a 30-day workflow artifact. Pushing a version tag such as `v1.0.0` builds the package and publishes a GitHub release with the `.deb` attached. The workflow uses a GitHub-hosted Linux runner with Theos's Linux cross-toolchain and downloads the iOS 9.3 SDK during the build; these build dependencies are not committed to this repository. You can also start a build from the Actions tab with **Build and release** → **Run workflow**.
+SoC Genius is distributed through the [Poop Labs APT repository](https://github.com/poopterm-labs/pooplabs-apt-repo), which also hosts regular Debian packages. Add this source in Cydia under **Sources → Edit → Add**:
+
+`https://poopterm-labs.github.io/pooplabs-apt-repo/`
+
+The current SoC Genius package targets ARMv7 (`iphoneos-arm`); it does not support the ARMv6 original iPhone, iPhone 3G, or first- and second-generation iPod touch.
 
 ## Adding a device
 
