@@ -27,7 +27,6 @@ SoC Genius 64:
 
 The classic build retains the original interface and feature set for 32-bit hardware. Missing kernel readings are shown as unavailable. Thermal state is not a temperature reading; iOS does not expose reliable CPU temperature to this app.
 
-The classic app has been checked on an iPad 1 running iOS 6.1.3. A community report also confirms use on an iPad mini running iOS 9.3.5 and noted that the navigation header could cover the tabs. The classic layout now keeps its tab selector below the navigation bar on iOS 7 and later.
 
 ## Device profiles
 
