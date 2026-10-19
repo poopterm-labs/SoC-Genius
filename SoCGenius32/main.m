@@ -198,6 +198,8 @@ static UIImage *TabIcon(NSInteger kind) {
 - (void)dealloc { if (_accelerometer) _accelerometer.delegate=nil; [_section release]; [_segments release]; [_refreshTimer invalidate]; [_refreshTimer release]; [_cpuValueLabels release]; [super dealloc]; }
 - (void)viewDidLoad {
     [super viewDidLoad]; self.title = @"SoC Genius";
+    // Keep the tab selector below the navigation bar on iOS 7 and later.
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.backgroundColor = [UIColor colorWithRed:0.90 green:0.91 blue:0.93 alpha:1.0];
     NSArray *sections=[NSArray arrayWithObjects:@"CPU",@"Device",@"Memory",@"Sensors",@"System",nil];
     _segments=[[UISegmentedControl alloc] initWithItems:sections]; _segments.frame=CGRectMake(10,5,self.view.bounds.size.width-20,32); _segments.autoresizingMask=UIViewAutoresizingFlexibleWidth; _segments.tintColor=[UIColor colorWithRed:0.13 green:0.34 blue:0.65 alpha:1]; _segments.selectedSegmentIndex=0; [_segments addTarget:self action:@selector(sectionChanged:) forControlEvents:UIControlEventValueChanged]; [self.view addSubview:_segments];
