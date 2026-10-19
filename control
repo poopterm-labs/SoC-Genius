@@ -1,0 +1,9 @@
+Package: com.socgenius.app
+Name: SoC Genius
+Version: 1.0.0-11+debug
+Architecture: iphoneos-arm
+Description: Hardware and system information for legacy iOS devices.
+Maintainer: SoC Genius
+Author: SoC Genius
+Section: Applications
+Depends: firmware (>= 4.0)

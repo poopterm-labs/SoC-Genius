@@ -1,0 +1,56 @@
+name: Build and release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential curl fakeroot git libtinfo5 libxml2-dev perl rsync unzip zip xz-utils
+
+      - name: Install Theos, the Linux cross-toolchain, and the iOS 9.3 SDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          theos_dir="$RUNNER_TEMP/theos"
+          sdk_repo="$RUNNER_TEMP/theos-sdks"
+          git clone --depth 1 --recursive https://github.com/theos/theos.git "$theos_dir"
+          echo "THEOS=$theos_dir" >> "$GITHUB_ENV"
+          curl -fsSL 'https://kabiroberai.com/toolchain/download.php?toolchain=ios-linux' -o "$RUNNER_TEMP/ios-toolchain.tar.gz"
+          tar -xzf "$RUNNER_TEMP/ios-toolchain.tar.gz" -C "$theos_dir/toolchain"
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git "$sdk_repo"
+          git -C "$sdk_repo" sparse-checkout set iPhoneOS9.3.sdk
+          mkdir -p "$theos_dir/sdks"
+          cp -R "$sdk_repo/iPhoneOS9.3.sdk" "$theos_dir/sdks/"
+
+      - name: Build Debian package
+        run: make clean package
+
+      - name: Save package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SoC-Genius-${{ github.ref_name }}
+          path: packages/*.deb
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish tagged release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" packages/*.deb --title "$GITHUB_REF_NAME" --generate-notes
