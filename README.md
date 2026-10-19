@@ -35,7 +35,7 @@ The current Theos target produces an ARMv7 binary with an iOS 4.0 deployment min
 
 ## Install from Cydia
 
-SoC Genius is distributed through the [Poop Labs APT repository](https://github.com/poopterm-labs/pooplabs-apt-repo), which also hosts regular Debian packages. Add this source in Cydia under **Sources → Edit → Add**:
+SoC Genius is distributed through the [pooplabs APT repository](https://github.com/poopterm-labs/pooplabs-apt-repo), which also hosts regular Debian packages. Add this source in Cydia under **Sources → Edit → Add**:
 
 `https://poopterm-labs.github.io/pooplabs-apt-repo/`
 
