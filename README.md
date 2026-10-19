@@ -30,22 +30,6 @@ The database is keyed by `hw.machine` identifiers in [`SoCGenius/main.m`](SoCGen
 
 The current Theos target produces an ARMv7 binary with an iOS 4.0 deployment minimum. The original iPhone, iPhone 3G, and first two iPod touch profiles are included as reference data; running the app on those ARMv6 devices requires a separate ARMv6-capable toolchain and binary slice. Maximum supported iOS depends on the exact device. The app has been installed and checked on an iPhone 5 running iOS 6.1.4; other models still need testing on hardware.
 
-## Build
-
-Build with [Theos](https://theos.dev/) and an Xcode installation containing the iOS 9.3 SDK (the project was built with Xcode 7.3.1):
-
-```sh
-export THEOS=/path/to/theos
-export PREFIX=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/
-
-make clean package \
-  THEOS_SDKS_PATH=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs
-```
-
-The Debian package is written to `packages/`. This is a rootful jailbreak package; it installs the app at `/Applications/SoCGenius.app`. Install it on a compatible device with the jailbreak package manager or `dpkg`.
-
-The target and deployment settings are in [`Makefile`](Makefile); package metadata is in [`control`](control).
-
 ## GitHub Actions
 
 Pushes to `main` build the Debian package and attach it as a 30-day workflow artifact. Pushing a version tag such as `v1.0.0` builds the package and publishes a GitHub release with the `.deb` attached. The workflow uses a GitHub-hosted Linux runner with Theos's Linux cross-toolchain and downloads the iOS 9.3 SDK during the build; these build dependencies are not committed to this repository. You can also start a build from the Actions tab with **Build and release** → **Run workflow**.
