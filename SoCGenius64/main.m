@@ -245,17 +245,17 @@ static NSString *BatteryDescription(void) {
 }
 static NSString *ThermalDescription(void) {
     NSProcessInfo *process=[NSProcessInfo processInfo];
-    if (@available(iOS 11.0, *)) {
-        if (![process respondsToSelector:@selector(thermalState)]) return @"Unavailable";
-        switch (process.thermalState) {
-            case NSProcessInfoThermalStateNominal: return @"Nominal";
-            case NSProcessInfoThermalStateFair: return @"Fair";
-            case NSProcessInfoThermalStateSerious: return @"Serious";
-            case NSProcessInfoThermalStateCritical: return @"Critical";
-            default: return @"Unknown";
-        }
+    SEL selector=NSSelectorFromString(@"thermalState");
+    if (![process respondsToSelector:selector]) return @"Not available on this iOS version";
+    typedef NSInteger (*ThermalStateGetter)(id, SEL);
+    ThermalStateGetter getThermalState=(ThermalStateGetter)[process methodForSelector:selector];
+    switch (getThermalState(process, selector)) {
+        case 0: return @"Nominal";
+        case 1: return @"Fair";
+        case 2: return @"Serious";
+        case 3: return @"Critical";
+        default: return @"Unknown";
     }
-    return @"Not available on this iOS version";
 }
 
 static UIColor *ThemeColor(NSInteger theme, NSInteger role) {
