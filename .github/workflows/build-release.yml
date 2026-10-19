@@ -21,7 +21,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential curl fakeroot git libtinfo5 libxml2-dev perl rsync unzip zip xz-utils
+          sudo apt-get install -y build-essential curl fakeroot git libtinfo6 libxml2-dev perl rsync unzip zip xz-utils
 
       - name: Install Theos, the Linux cross-toolchain, and the iOS 10.3 SDK
         shell: bash
@@ -31,8 +31,8 @@ jobs:
           sdk_repo="$RUNNER_TEMP/theos-sdks"
           git clone --depth 1 --recursive https://github.com/theos/theos.git "$theos_dir"
           echo "THEOS=$theos_dir" >> "$GITHUB_ENV"
-          curl -fsSL 'https://kabiroberai.com/toolchain/download.php?toolchain=ios-linux' -o "$RUNNER_TEMP/ios-toolchain.tar.gz"
-          tar -xzf "$RUNNER_TEMP/ios-toolchain.tar.gz" -C "$theos_dir/toolchain"
+          curl -fsSL 'https://github.com/L1ghtmann/llvm-project/releases/latest/download/iOSToolchain-x86_64.tar.xz' -o "$RUNNER_TEMP/ios-toolchain.tar.xz"
+          tar -xJf "$RUNNER_TEMP/ios-toolchain.tar.xz" -C "$theos_dir/toolchain"
           git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git "$sdk_repo"
           git -C "$sdk_repo" sparse-checkout set iPhoneOS10.3.sdk
           mkdir -p "$theos_dir/sdks"
