@@ -30,7 +30,7 @@ The classic build retains the original interface and feature set for 32-bit hard
 
 ## Device profiles
 
-The hardware database is keyed by `hw.machine` identifiers in [`SoCGenius64/main.m`](SoCGenius64/main.m). The iPhone profiles cover A7 through A17 Pro, including iPhone 11 and iPhone 15 Pro Max. iPad profiles include the 32-bit A-series generations and ARM64 M1 and M2 models. M2 is the highest M-series profile in this release.
+The hardware database is keyed by `hw.machine` identifiers in [`SoCGenius64/main.m`](SoCGenius64/main.m). The iPhone profiles cover A7 through A17 Pro, including iPhone 11 and iPhone 15 Pro Max.for iPads, M2 is the highest M-series profile in this release.
 
 | Devices | Profiled SoCs | Runs in SoC Genius 64 |
 | --- | --- | --- |
@@ -66,11 +66,12 @@ Build both packages:
 make clean-all package-all
 ```
 
-The package files are written to `packages/64/` and `packages/32/`. SoCGenius64 uses `arm64` and an iOS 7.0 deployment minimum. The classic target uses `armv7` and an iOS 6.0 deployment minimum, which retains support for the iPad 1 on iOS 6.1.3. For a rootless ARM64 jailbreak package, build the 64-bit target with `THEOS_PACKAGE_SCHEME=rootless`.
+The package files are written to `packages/64/` and `packages/32/`. SoCGenius64 uses `arm64` and an iOS 7.0 deployment minimum. The classic target uses `armv7` and an iOS 6.0 deployment minimum.
+`THEOS_PACKAGE_SCHEME=rootless`.
 
 ## Install from Cydia
 
-SoC Genius is distributed through the [Poop Labs APT repository](https://github.com/poopterm-labs/pooplabs-apt-repo). Add this source in Cydia under **Sources → Edit → Add**:
+SoC Genius is distributed through the [pooplabs APT repository](https://github.com/poopterm-labs/pooplabs-apt-repo). Add this source in Cydia under **Sources → Edit → Add**:
 
 `https://poopterm-labs.github.io/pooplabs-apt-repo/`
 
