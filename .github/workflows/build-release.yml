@@ -23,20 +23,53 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential curl fakeroot git libtinfo6 libxml2-dev perl rsync unzip zip xz-utils
 
-      - name: Install Theos, the Linux cross-toolchain, and the iOS 10.3 SDK
+      - name: Install Theos, the Linux cross-toolchain, and the iOS 9.3 SDK
         shell: bash
         run: |
           set -euo pipefail
           theos_dir="$RUNNER_TEMP/theos"
           sdk_repo="$RUNNER_TEMP/theos-sdks"
+          # The 9.3 stubs retain ARMv7 runtime symbols missing from the 10.3 stubs.
           git clone --depth 1 --recursive https://github.com/theos/theos.git "$theos_dir"
           echo "THEOS=$theos_dir" >> "$GITHUB_ENV"
           curl -fsSL 'https://github.com/L1ghtmann/llvm-project/releases/latest/download/iOSToolchain-x86_64.tar.xz' -o "$RUNNER_TEMP/ios-toolchain.tar.xz"
           tar -xJf "$RUNNER_TEMP/ios-toolchain.tar.xz" -C "$theos_dir/toolchain"
           git clone --depth 1 --filter=blob:none --sparse https://github.com/theos/sdks.git "$sdk_repo"
-          git -C "$sdk_repo" sparse-checkout set iPhoneOS10.3.sdk
+          git -C "$sdk_repo" sparse-checkout set iPhoneOS9.3.sdk
           mkdir -p "$theos_dir/sdks"
-          cp -R "$sdk_repo/iPhoneOS10.3.sdk" "$theos_dir/sdks/"
+          cp -R "$sdk_repo/iPhoneOS9.3.sdk" "$theos_dir/sdks/"
+          python3 - "$theos_dir/sdks/iPhoneOS9.3.sdk" <<'PY'
+          import pathlib
+          import re
+          import sys
+          sdk = pathlib.Path(sys.argv[1])
+          arch_lists_seen = 0
+          for stub in sdk.rglob("*.tbd"):
+              lines = stub.read_text(errors="replace").splitlines(keepends=True)
+              original_lines = list(lines)
+              remove = False
+              for index, line in enumerate(lines):
+                  match = re.match(r"^(\s*(?:-\s*)?archs:\s*\[)([^\]]*)(\].*)$", line.rstrip("\n"))
+                  if not match:
+                      continue
+                  arch_lists_seen += 1
+                  archs = [item.strip() for item in match.group(2).split(",") if item.strip()]
+                  device_archs = [item for item in archs if item not in {"i386", "x86_64"}]
+                  if device_archs != archs:
+                      if not device_archs:
+                          if line.startswith("archs:"):
+                              remove = True
+                              break
+                          continue
+                      newline = "\n" if line.endswith("\n") else ""
+                      lines[index] = match.group(1) + ", ".join(device_archs) + match.group(3) + newline
+              if remove:
+                  stub.unlink()
+              elif lines != original_lines:
+                  stub.write_text("".join(lines))
+          if arch_lists_seen == 0:
+              raise SystemExit("No architecture lists were found in the iOS SDK stubs")
+          PY
 
       - name: Build ARM64 and ARMv7 Debian packages
         run: make clean-all package-all FINALPACKAGE=1
