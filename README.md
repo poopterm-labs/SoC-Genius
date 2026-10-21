@@ -2,8 +2,6 @@
 
 SoC Genius is a jailbreak-first hardware information app for iPhone, iPad, and iPod touch. This repository contains both the classic 32-bit release, **SoC Genius**, and the ARM64 app, **SoC Genius 64**, with an updated interface and CPU-Z-inspired theme.
 
-Maintained by [poopterm-labs](https://github.com/poopterm-labs).
-
 ## Builds
 
 | Build | Architecture | Deployment target | Hardware scope |
