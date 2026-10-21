@@ -38,11 +38,14 @@ jobs:
           git -C "$sdk_repo" sparse-checkout set iPhoneOS9.3.sdk
           mkdir -p "$theos_dir/sdks"
           cp -R "$sdk_repo/iPhoneOS9.3.sdk" "$theos_dir/sdks/"
+          git -C "$sdk_repo" show "HEAD:iPhoneOS10.3.sdk/usr/lib/system/liblaunch.tbd" > "$theos_dir/sdks/iPhoneOS9.3.sdk/usr/lib/system/liblaunch.tbd"
           python3 - "$theos_dir/sdks/iPhoneOS9.3.sdk" <<'PY'
           import pathlib
           import re
           import sys
           sdk = pathlib.Path(sys.argv[1])
+          if not (sdk / "usr/lib/system/liblaunch.tbd").is_file():
+              raise SystemExit("The iOS SDK is missing the liblaunch re-export stub")
           arch_lists_seen = 0
           for stub in sdk.rglob("*.tbd"):
               lines = stub.read_text(errors="replace").splitlines(keepends=True)
