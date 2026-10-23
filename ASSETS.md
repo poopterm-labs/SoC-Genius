@@ -33,7 +33,7 @@ CC0 files do not require attribution, but the source links are retained here for
 
 ## App icons
 
-`SoCGenius32/Resources/SoCGenius-Icon-Master.png` and the `Icon*.png` exports, along with the corresponding SoCGenius64 icon exports, use a PureDarwin boot/panic screenshot. The source screenshot was made for this project; no third-party stock image is used in the app icon.
+The classic app icon is an original S/G chip mark. Its editable vector source is `SoCGenius32/Resources/SoCGenius-Icon-Master.svg`; the `SoCGenius32/Resources/Icon*.png` files are size-specific exports for the iOS icon slots in `Info.plist`. The 64-bit app keeps its own icon artwork.
 
 ## Code license
 

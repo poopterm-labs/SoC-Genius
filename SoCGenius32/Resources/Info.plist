@@ -15,8 +15,8 @@
 		<string>Icon-60@2x.png</string><string>Icon-76.png</string>
 		<string>Icon-76@2x.png</string><string>Icon-60@3x.png</string>
 	</array>
-	<key>CFBundleShortVersionString</key><string>1.02</string>
-	<key>CFBundleVersion</key><string>12</string>
+	<key>CFBundleShortVersionString</key><string>1.03</string>
+	<key>CFBundleVersion</key><string>13</string>
 	<key>LSRequiresIPhoneOS</key><true/>
 	<key>UIDeviceFamily</key><array><integer>1</integer><integer>2</integer></array>
 	<key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>
