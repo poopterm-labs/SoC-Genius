@@ -33,7 +33,7 @@ CC0 files do not require attribution, but the source links are retained here for
 
 ## App icons
 
-The classic app icon is an original S/G chip mark. Its editable vector source is `SoCGenius32/Resources/SoCGenius-Icon-Master.svg`; the `SoCGenius32/Resources/Icon*.png` files are size-specific exports for the iOS icon slots in `Info.plist`. The 64-bit app keeps its own icon artwork.
+Both apps use the project's S/G logo artwork. The classic app's size-specific `Icon*.png` files match the existing exports in `SoCGenius64/Resources/`; the 1024×1024 master image is `SoCGenius64/Resources/SoCGenius-Icon-Master.png`.
 
 ## Code license
 
